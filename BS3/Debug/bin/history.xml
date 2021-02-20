@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<history>
+   <processor signature="arm-none-eabi-gcc -mcpu=cortex-m0 -mthumb -g -nostartfiles -Map=BS3.map -O1 --gc-sections -LD:\CoIDE\configuration\ProgramData\BS3 -TD:\CoIDE\configuration\ProgramData\BS3/link.ld -g">
+      <target file="BS3.elf" lastModified="177c0ac6905">
+         <source file="..\obj\delay.o" lastModified="177c0ac53e0"/>
+         <source file="..\obj\stm32f0xx_rcc.o" lastModified="177c0ac54c1"/>
+         <source file="..\obj\nrf24.o" lastModified="177c0ac561d"/>
+         <source file="..\obj\stm32f0xx_adc.o" lastModified="177c0ac56f0"/>
+         <source file="..\obj\main.o" lastModified="177c0ac5930"/>
+         <source file="..\obj\startup_stm32f0xx.o" lastModified="177c0ac593d"/>
+         <source file="..\obj\timers.o" lastModified="177c0ac5a01"/>
+         <source file="..\obj\stm32f0xx_dma.o" lastModified="177c0ac5a73"/>
+         <source file="..\obj\tasks.o" lastModified="177c0ac5c21"/>
+         <source file="..\obj\stm32f0xx_spi.o" lastModified="177c0ac5cd9"/>
+         <source file="..\obj\nrf24_hal.o" lastModified="177c0ac5d30"/>
+         <source file="..\obj\system_stm32f0xx_temp.o" lastModified="177c0ac5d96"/>
+         <source file="..\obj\stm32f0xx_gpio.o" lastModified="177c0ac5e14"/>
+         <source file="..\obj\list.o" lastModified="177c0ac5e82"/>
+         <source file="..\obj\stm32f0xx_usart.o" lastModified="177c0ac5f6c"/>
+         <source file="..\obj\stm32f0xx_tim.o" lastModified="177c0ac60fa"/>
+         <source file="..\obj\queue.o" lastModified="177c0ac6221"/>
+         <source file="..\obj\port.o" lastModified="177c0ac628c"/>
+         <source file="..\obj\stream_buffer.o" lastModified="177c0ac6361"/>
+         <source file="..\obj\croutine.o" lastModified="177c0ac63a6"/>
+         <source file="..\obj\stm32f0xx_exti.o" lastModified="177c0ac640e"/>
+         <source file="..\obj\event_groups.o" lastModified="177c0ac64a3"/>
+         <source file="..\obj\stm32f0xx_syscfg.o" lastModified="177c0ac653f"/>
+         <source file="..\obj\heap_1.o" lastModified="177c0ac65a5"/>
+         <source file="..\obj\stm32f0xx_pwr.o" lastModified="177c0ac6614"/>
+         <source file="..\obj\perif.o" lastModified="177c0ac66b0"/>
+         <source file="..\obj\stm32f0xx_misc.o" lastModified="177c0ac670e"/>
+      </target>
+   </processor>
+</history>

@@ -105,26 +105,42 @@ void initUSART(void)
 
 void initTimer14(void)
 {
-		TIM_TimeBaseInitTypeDef TIMER_InitStructure;
+	  RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
+	  GPIO_InitTypeDef GPIO_InitStructure;
 
-	    RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM14, ENABLE);
+	  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
+	  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
+	  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+	  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	  GPIO_Init(GPIOA, &GPIO_InitStructure);
 
-	    TIM_TimeBaseStructInit(&TIMER_InitStructure);
-	    TIMER_InitStructure.TIM_CounterMode = TIM_CounterMode_Up; 	// counting mode
-	    TIMER_InitStructure.TIM_Prescaler =800; 					// keep in mind BUS prescalers
-	    TIMER_InitStructure.TIM_Period = 10000;
-	    TIM_TimeBaseInit(TIM14, &TIMER_InitStructure);
+	  GPIO_PinAFConfig(GPIOA, GPIO_PinSource4, GPIO_AF_4);
 
-	    TIM_ClearITPendingBit(TIM14, TIM_IT_Update);				// clear Compare Interrupt flag
-	    TIM_ITConfig(TIM14, TIM_IT_Update, ENABLE); 				// overflow interrupt
+	  TIM_TimeBaseInitTypeDef TIMER_InitStructure;
+	  RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM14, ENABLE);
 
-	    NVIC_InitTypeDef NVIC_InitStructure;
-	    NVIC_InitStructure.NVIC_IRQChannel = TIM14_IRQn;
-	    NVIC_InitStructure.NVIC_IRQChannelPriority = 2;				// 0(max)..3(min)
-	    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-	    NVIC_Init(&NVIC_InitStructure);
+	  TIM_TimeBaseStructInit(&TIMER_InitStructure);
+	  TIMER_InitStructure.TIM_CounterMode = TIM_CounterMode_Up; 	// counting mode
+	  TIMER_InitStructure.TIM_Prescaler =0; 					    // keep in mind BUS prescalers
+	  TIMER_InitStructure.TIM_Period = 100;
+	  TIMER_InitStructure.TIM_ClockDivision = TIM_CKD_DIV1;
+	  TIMER_InitStructure.TIM_RepetitionCounter = 0;
+	  TIM_TimeBaseInit(TIM14, &TIMER_InitStructure);
 
-//	    TIM_Cmd(TIM14, ENABLE);
+	  TIM_OCInitTypeDef  TIM_OCInitStructure;
+	  TIM_OCStructInit(&TIM_OCInitStructure);
+
+	  TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
+	  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Disable;
+	  TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
+	  TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Reset;
+	  TIM_OCInitStructure.TIM_Pulse = 8;
+
+	  TIM_OC1Init(TIM14, &TIM_OCInitStructure);
+
+//	  TIM_CCxCmd(TIM14,TIM_Channel_1,TIM_CCx_Disable);
+//	  TIM_Cmd(TIM14, ENABLE);
 }
 
 void initTimer15(void)
@@ -153,25 +169,52 @@ void initTimer15(void)
 
 void initTimer16(void)
 {
-	TIM_TimeBaseInitTypeDef TIMER_InitStructure;
+	  RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
+	  RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOB, ENABLE);
 
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM16, ENABLE);
+	  GPIO_InitTypeDef GPIO_InitStructure;
 
-    TIM_TimeBaseStructInit(&TIMER_InitStructure);
-    TIMER_InitStructure.TIM_CounterMode = TIM_CounterMode_Up; 	// counting mode
+	  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6;
+	  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
+	  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+	  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	  GPIO_Init(GPIOA, &GPIO_InitStructure);						//GPIOA6
+	  GPIO_Init(GPIOB, &GPIO_InitStructure);						//GPIOB6
 
-    TIMER_InitStructure.TIM_Prescaler = 25; 					// keep in mind BUS prescalers
-    TIMER_InitStructure.TIM_Period = 45;						//
-    TIM_TimeBaseInit(TIM16, &TIMER_InitStructure);
-    TIM_ITConfig(TIM16, TIM_IT_Update, ENABLE); 				// overflow interrupt
+	  GPIO_PinAFConfig(GPIOA, GPIO_PinSource6, GPIO_AF_5);
+	  GPIO_PinAFConfig(GPIOB, GPIO_PinSource6, GPIO_AF_2);
 
-    NVIC_InitTypeDef NVIC_InitStructure;
-    NVIC_InitStructure.NVIC_IRQChannel = TIM16_IRQn;
-    NVIC_InitStructure.NVIC_IRQChannelPriority = 3;				// 0(max)..3(min)
-    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-    NVIC_Init(&NVIC_InitStructure);
+	  TIM_TimeBaseInitTypeDef TIMER_InitStructure;
+	  RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM16, ENABLE);
 
-    //	    TIM_Cmd(TIM16, ENABLE);
+	  TIM_TimeBaseStructInit(&TIMER_InitStructure);
+	  TIMER_InitStructure.TIM_CounterMode = TIM_CounterMode_Up; 	// counting mode
+	  TIMER_InitStructure.TIM_Prescaler =8; 					    // keep in mind BUS prescalers
+	  TIMER_InitStructure.TIM_Period = 1000;
+	  TIMER_InitStructure.TIM_ClockDivision = TIM_CKD_DIV1;
+	  TIMER_InitStructure.TIM_RepetitionCounter = 0;
+	  TIM_TimeBaseInit(TIM16, &TIMER_InitStructure);
+
+	  TIM_OCInitTypeDef  TIM_OCInitStructure;
+	  TIM_OCStructInit(&TIM_OCInitStructure);
+
+	  TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
+	  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Disable;
+	  TIM_OCInitStructure.TIM_OutputNState= TIM_OutputNState_Disable;
+	  TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
+	  TIM_OCInitStructure.TIM_OCNPolarity= TIM_OCNPolarity_High;
+	  TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Reset;
+	  TIM_OCInitStructure.TIM_OCNIdleState= TIM_OCNIdleState_Reset;
+	  TIM_OCInitStructure.TIM_Pulse = 500;
+
+	  TIM_OC1Init(TIM16, &TIM_OCInitStructure);
+
+	  TIM16->CCER &=~ (uint16_t)(5);
+
+	  TIM_CtrlPWMOutputs(TIM16, ENABLE);
+
+	  //TIM16->CCER |= (uint16_t)(5);
 }
 
 void initTimer17(void)
@@ -305,7 +348,7 @@ void initADC(uint16_t* buffer, uint32_t size)
 
 	ADC_ChannelConfig(ADC1, ADC_Channel_4, ADC_SampleTime_7_5Cycles);		//Button
 	ADC_ChannelConfig(ADC1, ADC_Channel_5, ADC_SampleTime_7_5Cycles);		//Battery
-	ADC_ChannelConfig(ADC1, ADC_Channel_6, ADC_SampleTime_7_5Cycles);		//Feedback
+	ADC_ChannelConfig(ADC1, ADC_Channel_7, ADC_SampleTime_7_5Cycles);		//Feedback
 //	ADC_ChannelConfig(ADC1, ADC_Channel_17, ADC_SampleTime_7_5Cycles);		//Vref
 
 //	ADC_AutoPowerOffCmd(ADC1, ENABLE);

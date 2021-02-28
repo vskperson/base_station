@@ -17,7 +17,8 @@
 
 QueueHandle_t xQueueFromADC, xQueueFromUART, xQueueFromRadio, xQueueFromRadioHndl;
 TimerHandle_t xTimer[3];
-SemaphoreHandle_t xSemaphore[3];
+SemaphoreHandle_t xSemaphore[3], xCNTSemaphore;
+//uint8_t debugBuffer[400];
 
 uint16_t ADCbuf[3]={1000, 1000, 1000};
 struct Volts {
@@ -50,6 +51,29 @@ BOBBER bobFromRadio, bobFromQueue;
 uint8_t devOffCNT=1, flg=0;
 
 //----------------------TASKS---------------------
+void vBuzzer (void *pvParameters)
+{
+	while(1)
+	{
+		xSemaphoreTake(xCNTSemaphore, portMAX_DELAY);
+
+		TIM16->CNT = 0;
+		TIM16->ARR=1000;
+		TIM16->CCR1=500;
+		TIM16->CCER |= (uint16_t)(5);					//turn on buzzer
+
+		vTaskDelay(300);
+
+		TIM16->CNT = 0;
+		TIM16->ARR=500;
+		TIM16->CCR1=250;
+
+		vTaskDelay(200);
+
+		TIM16->CCER &=~ (uint16_t)(5);					//turn off buzzer
+	}
+}
+
 void vBlinker (void *pvParameters)
 {
 	uint8_t color=0;
@@ -57,6 +81,7 @@ void vBlinker (void *pvParameters)
 	while(1)
 	{
 		 xQueueReceive(xQueueFromRadioHndl, &color, portMAX_DELAY);
+		 xSemaphoreGive(xCNTSemaphore);
 
 		 GPIO_SetBits(GPIOB, GPIO_Pin_7);
 		 vTaskDelay(150);
@@ -69,8 +94,6 @@ void vBlinker (void *pvParameters)
 		 GPIO_SetBits(GPIOB, GPIO_Pin_7);
 		 vTaskDelay(150);
 		 GPIO_ResetBits(GPIOB, GPIO_Pin_7);
-		 USART_SendData(USART1, color);
-		 UART_TXDelay;
 	}
 }
 
@@ -193,6 +216,8 @@ void vUARTHandler (void *pvParameters)
 		 								 	USART_SendData(USART1,tmpDev[1][2]);
 		 								 	UART_TXDelay;
 		 								 	break;
+		 						case '4':
+		 									break;
 		 						default :   break;
 		           }
 	}
@@ -283,6 +308,7 @@ int main(void)
 	initUSART();
 //	initTimer14();
 	initTimer15();
+	initTimer16();
 	initADC(ADCbuf, 3);
 	initEXTI();
 
@@ -330,23 +356,29 @@ int main(void)
 	xQueueFromRadio = xQueueCreate( 6, sizeof(bobFromRadio) );
 	xQueueFromRadioHndl = xQueueCreate( 3, 1 );
 
+	if(pdTRUE != xTaskCreate(vBuzzer,"Buzzer", configMINIMAL_STACK_SIZE, NULL, 1, NULL)) ERROR_ACTION(TASK_NOT_CREATE,0);
 	if(pdTRUE != xTaskCreate(vBlinker,"Blinker", configMINIMAL_STACK_SIZE, NULL, 1, NULL)) ERROR_ACTION(TASK_NOT_CREATE,0);
 	if(pdTRUE != xTaskCreate(vDisabler,"Disabler", configMINIMAL_STACK_SIZE, NULL, 1, NULL)) ERROR_ACTION(TASK_NOT_CREATE,0);
-	if(pdTRUE != xTaskCreate(vADCHandler,"ADC_hndl", configMINIMAL_STACK_SIZE, NULL, 3, NULL)) ERROR_ACTION(TASK_NOT_CREATE,0);
-	if(pdTRUE != xTaskCreate(vUARTHandler,"UART_hndl", configMINIMAL_STACK_SIZE, NULL, 1, NULL)) ERROR_ACTION(TASK_NOT_CREATE,0);
-	if(pdTRUE != xTaskCreate(vRADIOHandler,"RADIO_hndl", 256, NULL, 2, NULL)) ERROR_ACTION(TASK_NOT_CREATE,0);
+	if(pdTRUE != xTaskCreate(vADCHandler,"ADC_hndl", 128, NULL, 3, NULL)) ERROR_ACTION(TASK_NOT_CREATE,0);
+	if(pdTRUE != xTaskCreate(vUARTHandler,"UART_hndl", 128, NULL, 1, NULL)) ERROR_ACTION(TASK_NOT_CREATE,0);
+	if(pdTRUE != xTaskCreate(vRADIOHandler,"RADIO_hndl", 128, NULL, 2, NULL)) ERROR_ACTION(TASK_NOT_CREATE,0);
 
 	xTimer[0] = xTimerCreate("Tmr1", 102, pdFALSE, ( void * ) 0, vTOneCallbackFunction);
 	xTimer[1] = xTimerCreate("Tmr2", 102, pdFALSE, ( void * ) 0, vTTwoCallbackFunction);
 	xTimer[2] = xTimerCreate("Tmr3", 102, pdFALSE, ( void * ) 0, vTThreeCallbackFunction);
 
-	xSemaphore[0]=xSemaphoreCreateMutex();
-	xSemaphore[1]=xSemaphoreCreateMutex();
-	xSemaphore[2]=xSemaphoreCreateMutex();
+	xSemaphore[0] = xSemaphoreCreateMutex();
+	xSemaphore[1] = xSemaphoreCreateMutex();
+	xSemaphore[2] = xSemaphoreCreateMutex();
+
+	xCNTSemaphore = xSemaphoreCreateCounting(3, 0);
 
 //	TIM_Cmd(TIM14, ENABLE);
 	TIM_Cmd(TIM15, ENABLE);
+	TIM_Cmd(TIM16, ENABLE);
 	ADC_StartOfConversion(ADC1);
+
+//	vTaskList(debugBuffer);
 
 	SysTick_Config(TimerTick);			//1000Hz, 1ms update
 	vTaskStartScheduler();

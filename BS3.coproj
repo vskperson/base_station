@@ -87,8 +87,9 @@
     <File name="rtos/inc/stack_macros.h" path="freertos/include/stack_macros.h" type="1"/>
     <File name="stm32_lib/src/stm32f0xx_exti.c" path="stm32_lib/src/stm32f0xx_exti.c" type="1"/>
     <File name="cmsis_core/core_cmInstr.h" path="cmsis_core/core_cmInstr.h" type="1"/>
-    <File name="cmsis_boot/system_stm32f0xx_temp.c" path="cmsis_boot/system_stm32f0xx_temp.c" type="1"/>
+    <File name="syscalls.c" path="syscalls.c" type="1"/>
     <File name="rtos/inc/mpu_wrappers.h" path="freertos/include/mpu_wrappers.h" type="1"/>
+    <File name="cmsis_boot/system_stm32f0xx_temp.c" path="cmsis_boot/system_stm32f0xx_temp.c" type="1"/>
     <File name="rtos/inc/FreeRTOS.h" path="freertos/include/FreeRTOS.h" type="1"/>
     <File name="cmsis_boot" path="" type="2"/>
     <File name="delay.h" path="delay.h" type="1"/>
@@ -96,23 +97,23 @@
     <File name="nrf24_hal.c" path="nrf24_hal.c" type="1"/>
     <File name="cmsis_boot/startup" path="" type="2"/>
     <File name="stm32_lib/inc/stm32f0xx_tim.h" path="stm32_lib/inc/stm32f0xx_tim.h" type="1"/>
-    <File name="rtos/inc/message_buffer.h" path="freertos/include/message_buffer.h" type="1"/>
     <File name="cmsis_core" path="" type="2"/>
+    <File name="rtos/inc/message_buffer.h" path="freertos/include/message_buffer.h" type="1"/>
     <File name="rtos/src/stream_buffer.c" path="freertos/stream_buffer.c" type="1"/>
     <File name="stm32_lib/src/stm32f0xx_spi.c" path="stm32_lib/src/stm32f0xx_spi.c" type="1"/>
     <File name="stm32_lib/inc/stm32f0xx_gpio.h" path="stm32_lib/inc/stm32f0xx_gpio.h" type="1"/>
-    <File name="cmsis_boot/stm32f0xx.h" path="cmsis_boot/stm32f0xx.h" type="1"/>
     <File name="stm32_lib/src/stm32f0xx_adc.c" path="stm32_lib/src/stm32f0xx_adc.c" type="1"/>
+    <File name="cmsis_boot/stm32f0xx.h" path="cmsis_boot/stm32f0xx.h" type="1"/>
     <File name="stm32_lib/inc/stm32f0xx_usart.h" path="stm32_lib/inc/stm32f0xx_usart.h" type="1"/>
-    <File name="stm32_lib/src/stm32f0xx_dma.c" path="stm32_lib/src/stm32f0xx_dma.c" type="1"/>
     <File name="cmsis_core/core_cm0.h" path="cmsis_core/core_cm0.h" type="1"/>
+    <File name="stm32_lib/src/stm32f0xx_dma.c" path="stm32_lib/src/stm32f0xx_dma.c" type="1"/>
     <File name="rtos/inc/stream_buffer.h" path="freertos/include/stream_buffer.h" type="1"/>
     <File name="stm32_lib/inc/stm32f0xx_dma.h" path="stm32_lib/inc/stm32f0xx_dma.h" type="1"/>
     <File name="rtos/src/heap_1.c" path="freertos/heap_1.c" type="1"/>
     <File name="rtos/src/list.c" path="freertos/list.c" type="1"/>
     <File name="rtos/src/croutine.c" path="freertos/croutine.c" type="1"/>
-    <File name="nrf24.h" path="nrf24.h" type="1"/>
     <File name="perif.c" path="perif.c" type="1"/>
+    <File name="nrf24.h" path="nrf24.h" type="1"/>
     <File name="rtos/inc/timers.h" path="freertos/include/timers.h" type="1"/>
     <File name="stm32_lib/src/stm32f0xx_pwr.c" path="stm32_lib/src/stm32f0xx_pwr.c" type="1"/>
     <File name="stm32_lib/inc/stm32f0xx_misc.h" path="stm32_lib/inc/stm32f0xx_misc.h" type="1"/>
@@ -124,16 +125,16 @@
     <File name="rtos/inc/event_groups.h" path="freertos/include/event_groups.h" type="1"/>
     <File name="perif.h" path="perif.h" type="1"/>
     <File name="stm32_lib/src/stm32f0xx_usart.c" path="stm32_lib/src/stm32f0xx_usart.c" type="1"/>
+    <File name="rtos/src/queue.c" path="freertos/queue.c" type="1"/>
     <File name="cmsis_boot/startup/startup_stm32f0xx.s" path="cmsis_boot/startup/startup_stm32f0xx.s" type="1"/>
     <File name="cmsis_boot/stm32f0xx_conf.h" path="cmsis_boot/stm32f0xx_conf.h" type="1"/>
-    <File name="rtos/src/queue.c" path="freertos/queue.c" type="1"/>
     <File name="nrf24.c" path="nrf24.c" type="1"/>
     <File name="rtos/inc/queue.h" path="freertos/include/queue.h" type="1"/>
     <File name="cmsis_core/core_cmFunc.h" path="cmsis_core/core_cmFunc.h" type="1"/>
     <File name="rtos/inc/StackMacros.h" path="freertos/include/StackMacros.h" type="1"/>
-    <File name="rtos/inc/projdefs.h" path="freertos/include/projdefs.h" type="1"/>
     <File name="stm32_lib/inc/stm32f0xx_syscfg.h" path="stm32_lib/inc/stm32f0xx_syscfg.h" type="1"/>
     <File name="stm32_lib" path="" type="2"/>
+    <File name="rtos/inc/projdefs.h" path="freertos/include/projdefs.h" type="1"/>
     <File name="rtos/inc/portable.h" path="freertos/include/portable.h" type="1"/>
     <File name="rtos/inc/croutine.h" path="freertos/include/croutine.h" type="1"/>
     <File name="rtos/inc/atomic.h" path="freertos/include/atomic.h" type="1"/>
@@ -153,13 +154,13 @@
     <File name="rtos/src/timers.c" path="freertos/timers.c" type="1"/>
     <File name="stm32_lib/src/stm32f0xx_gpio.c" path="stm32_lib/src/stm32f0xx_gpio.c" type="1"/>
     <File name="rtos/inc/mpu_prototypes.h" path="freertos/include/mpu_prototypes.h" type="1"/>
-    <File name="stm32_lib/src/stm32f0xx_misc.c" path="stm32_lib/src/stm32f0xx_misc.c" type="1"/>
     <File name="FreeRTOSConfig.h" path="FreeRTOSConfig.h" type="1"/>
+    <File name="stm32_lib/src/stm32f0xx_misc.c" path="stm32_lib/src/stm32f0xx_misc.c" type="1"/>
     <File name="delay.c" path="delay.c" type="1"/>
     <File name="rtos/inc/deprecated_definitions.h" path="freertos/include/deprecated_definitions.h" type="1"/>
-    <File name="stm32_lib/inc/stm32f0xx_adc.h" path="stm32_lib/inc/stm32f0xx_adc.h" type="1"/>
-    <File name="stm32_lib/src" path="" type="2"/>
-    <File name="rtos" path="" type="2"/>
     <File name="main.c" path="main.c" type="1"/>
+    <File name="rtos" path="" type="2"/>
+    <File name="stm32_lib/src" path="" type="2"/>
+    <File name="stm32_lib/inc/stm32f0xx_adc.h" path="stm32_lib/inc/stm32f0xx_adc.h" type="1"/>
   </Files>
 </Project>
